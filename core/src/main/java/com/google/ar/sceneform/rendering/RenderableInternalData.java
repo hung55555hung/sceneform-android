@@ -202,7 +202,7 @@ class RenderableInternalData implements IRenderableInternalData {
     IRenderableInternalData renderableData = renderable.getRenderableData();
     ArrayList<Material> materialBindings = renderable.getMaterialBindings();
     RenderableManager renderableManager = EngineInstance.getEngine().getRenderableManager();
-    @EntityInstance int renderableInstance = renderableManager.getInstance(renderedEntity);
+    @EntityInstance int renderableInstance = 0;
 
     // Determine if a new filament Renderable needs to be created.
     int meshCount = renderableData.getMeshes().size();
@@ -225,6 +225,10 @@ class RenderableInternalData implements IRenderableInternalData {
       builder.build(EngineInstance.getEngine().getFilamentEngine(), renderedEntity);
 
       renderableInstance = renderableManager.getInstance(renderedEntity);
+      
+      if (renderableInstance == 0) {
+        throw new AssertionError("Unable to create RenderableInstance.");
+      }
      
     } else {
       renderableManager.setPriority(renderableInstance, renderable.getRenderPriority());
