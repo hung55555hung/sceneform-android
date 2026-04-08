@@ -225,11 +225,13 @@ class RenderableInternalData implements IRenderableInternalData {
 
       builder.build(EngineInstance.getEngine().getFilamentEngine(), renderedEntity);
 
+       if (FORCE_RENDERABLE_INSTANCE_CRASH) {
+        renderableManager.destroy(renderedEntity);
+      }
+
       renderableInstance = renderableManager.getInstance(renderedEntity);
       
-      if (FORCE_RENDERABLE_INSTANCE_CRASH) {
-        throw new AssertionError("Unable to create RenderableInstance.");
-      }
+     
       
       if (renderableInstance == 0) {
         throw new AssertionError("Unable to create RenderableInstance.");
