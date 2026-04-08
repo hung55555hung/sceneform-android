@@ -27,6 +27,7 @@ import java.util.List;
  */
 class RenderableInternalData implements IRenderableInternalData {
   private static final String TAG = RenderableInternalData.class.getSimpleName();
+  private static final boolean FORCE_RENDERABLE_INSTANCE_CRASH = true;
 
   /** Represents the data used to render each mesh of the renderable. */
   static class MeshData {
@@ -225,6 +226,10 @@ class RenderableInternalData implements IRenderableInternalData {
       builder.build(EngineInstance.getEngine().getFilamentEngine(), renderedEntity);
 
       renderableInstance = renderableManager.getInstance(renderedEntity);
+      
+      if (FORCE_RENDERABLE_INSTANCE_CRASH) {
+        throw new AssertionError("Unable to create RenderableInstance.");
+      }
       
       if (renderableInstance == 0) {
         throw new AssertionError("Unable to create RenderableInstance.");
